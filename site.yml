@@ -5,7 +5,7 @@
   pre_tasks: # task ce va rula primul 
 
   - name: install update for Ubuntu
-    tags: always
+    tags: always #ruleaza tot timpul 
     apt:
       upgrade: dist
       update_cache: yes
@@ -41,6 +41,15 @@
         - php
       state: latest 
     when: ansible_distribution == "RedHat" 
+
+  - name: copy html file for site
+    tags: apache,apache2,httpd
+    copy:
+      src: default_site.html #sursa
+      dest: /var/www/html/index.html #destinatie
+      owner: root
+      group: root
+      mode: 0644
 
 
 - hosts: db_servers
