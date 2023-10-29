@@ -1,5 +1,7 @@
+[web_servers]
 ubuntu@ec2-3-249-67-144.eu-west-1.compute.amazonaws.com
 ubuntu@ec2-63-33-71-175.eu-west-1.compute.amazonaws.com
 ubuntu@ec2-18-202-234-18.eu-west-1.compute.amazonaws.com
-
-
+[db_servers]
+ubuntu@ec2-54-74-202-122.eu-west-1.compute.amazonaws.com
+ec2-user@ec2-54-195-42-82.eu-west-1.compute.amazonaws.com
