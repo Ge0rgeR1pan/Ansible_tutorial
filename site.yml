@@ -1,0 +1,63 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks: # task ce va rula primul 
+
+  - name: install update for Ubuntu
+    tags: always
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+
+  - name: install update for RedHat
+    tags: always
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "RedHat"
+
+
+- hosts: web_servers
+  become: true
+  tasks: 
+
+  - name: install apache2 and php package for Ubuntu
+    tags: apache,apache2,ubuntu
+    apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu" 
+
+  - name: install apache and php package for RedHat
+    tags: apache,redhat,httpd
+    dnf:  # = apt 
+      name: 
+        - httpd # = apache2
+        - php
+      state: latest 
+    when: ansible_distribution == "RedHat" 
+
+
+- hosts: db_servers
+  become: true
+  tasks: 
+
+  - name: install mysql package for Ubuntu
+    tags: mysql, db, ubuntu
+    apt:
+      name: mysql-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+
+  - name: install mysql package for RedHat
+    tags: redhat, mysql, db
+    dnf:
+      name: mysql-server
+      state: latest
+    when: ansible_distribution == "RedHat"
